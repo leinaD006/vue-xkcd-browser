@@ -1,3 +1,5 @@
+Vue.component('star-rating', VueStarRating.default);
+
 let app = new Vue({
   el: '#app',
   data: {
@@ -12,6 +14,7 @@ let app = new Vue({
     addedName: '',
     addedComment: '',
     comments: {},
+    ratings: {},
   },
   created() {
     this.xkcd();
@@ -34,6 +37,16 @@ let app = new Vue({
       month[10] = "November";
       month[11] = "December";
       return month[this.current.month - 1];
+    },
+    getRating() {
+        // let out = Math.round(1.0 * this.ratings.sum / this.ratings.total * 100) / 100;
+        // console.log(out);
+        if (!(this.number in this.ratings)) {
+            return 0;
+        } else {
+            return Math.round((1.0 * this.ratings[this.number].sum) / this.ratings[this.number].total * 100) / 100;
+        }
+        
     }
   },
   watch: {
@@ -100,6 +113,15 @@ let app = new Vue({
         this.addedName = '';
         this.addedComment = '';
       },
+      setRating(rating){
+        if (!(this.number in this.ratings))
+        Vue.set(this.ratings, this.number, {
+          sum: 0,
+          total: 0
+        });
+        this.ratings[this.number].sum += rating;
+        this.ratings[this.number].total += 1;
+      }
   }
 }).catch(error => {
     this.number = this.max;

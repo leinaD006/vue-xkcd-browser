@@ -25,6 +25,12 @@
       <img v-bind:src="current.img" v-bind:alt="current.alt">
       <p>{{current.alt}}</p>
       <p><i>#{{current.num}}, drawn on {{current.day}} {{month}} {{current.year}}</i></p>
+      <star-rating @rating-selected ="setRating"
+          v-bind:increment="0.5"
+          v-bind:max-rating="5"
+          active-color="#f00"
+          v-bind:show-rating="false"></star-rating>
+      <p>Average rating: {{getRating}}</p>
       <h3>Add a Comment</h3>
       <form v-on:submit.prevent="addComment">
         <input v-model="addedName" placeholder="Name"></p>
