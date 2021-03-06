@@ -1,3 +1,9 @@
+import StarRating from 'vue-star-rating'
+
+components: {
+    StarRating
+  }
+
 let app = new Vue({
   el: '#app',
   data: {
